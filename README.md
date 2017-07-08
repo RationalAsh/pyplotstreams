@@ -1,0 +1,2 @@
+# pyplotstreams
+Inspired by gnuplotStreams, I wanted to create a pythong script that could plot streams of data coming in from STDIN using python and matplotlib. Work in progress. Lots of things left to add but the basic plotting is working.
