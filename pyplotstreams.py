@@ -7,6 +7,7 @@ import numpy
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
+#Some argument parsing to make the program more friendly
 parser = argparse.ArgumentParser(description='Plots data streaming from STDIN in realtime or statically')
 parser.add_argument('--xlen', default=100, type=int)
 parser.add_argument('--stream', default=None, type=float)
@@ -48,6 +49,10 @@ def data_gen_rand():
         yield [numpy.random.rand(), ctr]
 
 def data_gen_ser():
+    '''
+    Function that reads lines from STDIN as they come in
+    and feeds the data to the animation loop.
+    '''
     ctr = 0.0
     while True:
         S = sys.stdin.readline()
@@ -57,11 +62,17 @@ def data_gen_ser():
         yield(S_F)
 
 def init():
+    '''
+    Initialization function sets up the plot at the start.
+    '''
     for line in lines:
         line.set_data([],[])
     return tuple(lines)
 
 def animate(data):
+    '''
+    Function that is called at every loop in the animation.
+    '''
     #Get the data and convert to list
     x_buf.append(data[-1])
     y_buf.append(data[:-1])
@@ -77,7 +88,8 @@ def animate(data):
 
     return tuple(lines)
 
+#Start the animation
 anim = animation.FuncAnimation(fig, animate, init_func=init,
-                               frames=data_gen_ser, interval=0, blit=True)
+                               frames=data_gen_ser, interval=1000, blit=True)
 
 plt.show()
