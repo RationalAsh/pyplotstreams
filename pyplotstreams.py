@@ -65,11 +65,9 @@ def animate(data):
     #Get the data and convert to list
     x_buf.append(data[-1])
     y_buf.append(data[:-1])
-    #x = list(x_buf)
-    #y = list(y_buf)
 
     #Update the data in the lines
-    for lnum,line in enumerate(lines):
+    for lnum, line in enumerate(lines):
         line.set_data(x_buf, [row[lnum] for row in y_buf])
     
     #Update the axes ranges
